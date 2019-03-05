@@ -1,0 +1,7 @@
+<button type="button" class="btn btn-primary my-3" (click)="cambiarVisibilidad()">Ocultar lista</button>
+<div class="card">
+  <div class="card-header">Listado de cursos</div>
+  <ul class="lsit-group" *ngIf="visible == true">
+    <li class="list-group-item" *ngFor="let curso of listaCurso">{{curso}}</li>
+  </ul>
+</div>
