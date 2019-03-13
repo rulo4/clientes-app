@@ -1,8 +1,12 @@
 <div class="card border-primary mb-3">
   <div class="card-header">Clientes</div>
   <div class="card-body text-primary">
-    <h5 class="card-title">Lista</h5>
+    <h5 class="card-title">Lista de clientes</h5>
     <div class="card-text">
+      <div class="my-2 text-left" [routerLink]="['/clientes/form']">
+        <button type="button" class="btn btn-rounded btn-success">Crear</button>
+      </div>
+
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
