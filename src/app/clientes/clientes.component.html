@@ -27,7 +27,14 @@
             <td>{{cliente.creacion}}</td>
             <td>
               <button type="button" class="btn btn-primary" [routerLink]="['/clientes/form', cliente.id]">Editar</button>
-              <button type="button" class="btn btn-danger" (click)="delete(cliente)">Eliminar</button>
+              <button type="button" class="btn btn-danger" (click)="confirmDelete(confirmDeleteModal)">Eliminar</button>
+              <ng-template #confirmDeleteModal>
+                <div class="modal-body text-center">
+                  <p>¿Eliminar?</p>
+                  <button type="button" class="btn btn-default" (click)="delete(cliente);modalRef.hide()" >Sí</button>
+                  <button type="button" class="btn btn-primary" (click)="modalRef.hide()">No</button>
+                </div>
+              </ng-template>
             </td>
           </tr>
         </tbody>

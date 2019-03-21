@@ -13,6 +13,8 @@ import { ClientesFormComponent } from './clientes/clientes-form/clientes-form.co
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import {BsModalService, ComponentLoaderFactory, ModalBackdropComponent, PositioningService} from 'ngx-bootstrap';
+import {ModalContainerComponent} from 'ngx-bootstrap/modal';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
@@ -23,13 +25,19 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  entryComponents: [
+    ModalBackdropComponent,
+    ModalContainerComponent
+  ],
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     DirectivaComponent,
     ClientesComponent,
-    ClientesFormComponent
+    ClientesFormComponent,
+    ModalBackdropComponent,
+    ModalContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +48,13 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
-    ClienteService
+    ClienteService,
+    BsModalService,
+    ComponentLoaderFactory,
+    PositioningService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

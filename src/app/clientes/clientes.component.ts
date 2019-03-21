@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import {ToastrService} from 'ngx-toastr';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-clientes',
@@ -10,8 +11,10 @@ import {ToastrService} from 'ngx-toastr';
 export class ClientesComponent implements OnInit {
 
   clientes: Cliente[];
+  modalRef: BsModalRef;
 
-  constructor(private clienteService: ClienteService, private toastr: ToastrService) { }
+  constructor(private clienteService: ClienteService, private toastr: ToastrService,
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     this.clienteService.getClientes().subscribe(
@@ -24,6 +27,10 @@ export class ClientesComponent implements OnInit {
       this.toastr.success(`Cliente eliminado`);
       this.clientes = this.clientes.filter(c => c !== cliente);
     });
+  }
+
+  confirmDelete(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
 }

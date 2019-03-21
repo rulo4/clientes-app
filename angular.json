@@ -24,13 +24,10 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bs4/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-3.3.1.min.js",
-              "src/assets/js/popper.min.js",
-              "src/assets/js/bootstrap.min.js"
             ],
             "es5BrowserSupport": true
           },
@@ -87,13 +84,10 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "src/styles.css",
-              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bs4/bootstrap.min.css",
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "src/assets/js/jquery-3.3.1.min.js",
-              "src/assets/js/popper.min.js",
-              "src/assets/js/bootstrap.min.js"
             ],
             "assets": [
               "src/favicon.ico",
