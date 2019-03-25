@@ -28,14 +28,9 @@ export class ClientesFormComponent implements OnInit {
   }
 
   public create(): void {
-    this.clienteService.create(this.cliente).subscribe(response => {
-
-      if (response) {
-        this.toastr.success(`Cliente ${response.nombre} creado`);
-        this.router.navigate(['/clientes']);
-      } else {
-        this.toastr.error(`Error al intentar crear cliente`);
-      }
+    this.clienteService.create(this.cliente).subscribe(cliente => {
+      this.toastr.success(`Cliente ${cliente.nombre} creado`);
+      this.router.navigate(['/clientes']);
     });
   }
 

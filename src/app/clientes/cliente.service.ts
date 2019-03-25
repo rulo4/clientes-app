@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
-import { Observable, of } from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,30 +16,58 @@ export class ClienteService {
     'Content-Type': 'application/json'
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
 
   }
 
   getClientes(): Observable<Cliente[]> {
-    // return this.http.get<Cliente[]>(this.serverUrl);
     return this.http.get(this.serverUrl).pipe(
-      map(response => response as Cliente[])
+      map(response => response as Cliente[]),
+      catchError(e => {
+        this.toastr.error(e.error.msj);
+        return throwError(e);
+      })
     );
   }
 
   create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.serverUrl, cliente, {headers: this.httpHeaders});
+    return this.http.post(this.serverUrl, cliente, {headers: this.httpHeaders}).pipe(
+      map((respose: any) => respose.cliente as Cliente),
+      catchError(e => {
+        this.toastr.error(e.error.msj);
+        return throwError(e);
+      })
+    );
   }
 
   getCliente(id): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.serverUrl}/${id}`);
+    return this.http.get(`${this.serverUrl}/${id}`).pipe(
+      map((respose: any) => respose.cliente as Cliente),
+      catchError(e => {
+        this.router.navigate(['/clientes']);
+        this.toastr.error(e.error.msj);
+        return throwError(e);
+      })
+    );
   }
 
   updateCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.serverUrl}/${cliente.id}`, cliente, {headers: this.httpHeaders});
+    return this.http.put(`${this.serverUrl}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+      map((respose: any) => respose.cliente as Cliente),
+      catchError(e => {
+        this.toastr.error(e.error.msj);
+        return throwError(e);
+      })
+    );
   }
 
   deleteCliente(id: number): Observable<Cliente> {
-    return this.http.delete<Cliente>(`${this.serverUrl}/${id}`, {headers: this.httpHeaders});
+    return this.http.delete<Cliente>(`${this.serverUrl}/${id}`, {headers: this.httpHeaders}).pipe(
+      map((respose: any) => respose.cliente as Cliente),
+      catchError(e => {
+        this.toastr.error(e.error.msj);
+        return throwError(e);
+      })
+    );
   }
 }

@@ -7,7 +7,10 @@
         <button type="button" class="btn btn-rounded btn-success">Crear</button>
       </div>
 
-      <table class="table table-hover">
+      <div class="alert alert-info" *ngIf="clientes?.length == 0">
+        No hay elementos para mostrar
+      </div>
+      <table class="table table-hover" *ngIf="clientes?.length > 0">
         <thead class="thead-light">
           <tr>
             <th>Id</th>
