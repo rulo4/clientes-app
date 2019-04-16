@@ -15,6 +15,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {BsModalService, ComponentLoaderFactory, ModalBackdropComponent, PositioningService} from 'ngx-bootstrap';
 import {ModalContainerComponent} from 'ngx-bootstrap/modal';
+import { registerLocaleData } from '@angular/common';
+import locale from '@angular/common/locales/es-MX';
+
+registerLocaleData(locale);
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
@@ -44,7 +48,9 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      enableHtml: true
+    }),
     RouterModule.forRoot(routes)
   ],
   providers: [

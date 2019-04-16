@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { formatDate } from '@angular/common';
 import { Cliente } from './cliente';
-import {Observable, of, throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
@@ -11,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ClienteService {
 
-  private serverUrl:string = 'http://localhost:8080/api/clientes';
+  private serverUrl = 'http://localhost:8080/api/clientes';
   private httpHeaders: HttpHeaders = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -22,7 +23,16 @@ export class ClienteService {
 
   getClientes(): Observable<Cliente[]> {
     return this.http.get(this.serverUrl).pipe(
-      map(response => response as Cliente[]),
+      map((response: any) => {
+        const clientes = response as Cliente[];
+
+        return clientes.map(cliente => {
+          cliente.nombre = cliente.nombre.toUpperCase();
+          cliente.apellido = cliente.apellido.toUpperCase();
+          cliente.creacion = formatDate(cliente.creacion, 'fullDate', 'es-MX');
+          return cliente;
+        });
+      }),
       catchError(e => {
         this.toastr.error(e.error.msj);
         return throwError(e);

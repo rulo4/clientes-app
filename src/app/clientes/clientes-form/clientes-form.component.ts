@@ -10,13 +10,21 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class ClientesFormComponent implements OnInit {
   private cliente: Cliente = new Cliente();
-  private titulo: string = 'Crear';
+  private titulo = 'Crear';
 
   constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute,
               private toastr: ToastrService) { }
 
   ngOnInit() {
     this.loadCliente();
+  }
+
+  public getCliente() {
+    return this.cliente;
+  }
+
+  public setCliente(cliente: Cliente) {
+    this.cliente = cliente;
   }
 
   public loadCliente(): void {
