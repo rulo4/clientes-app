@@ -21,17 +21,18 @@ export class ClienteService {
 
   }
 
-  getClientes(): Observable<Cliente[]> {
-    return this.http.get(this.serverUrl).pipe(
+  getClientes(pagina: number): Observable<any> {
+    return this.http.get(this.serverUrl + '/pagina/' + pagina).pipe(
       map((response: any) => {
-        const clientes = response as Cliente[];
+        // const clientes = response.content as Cliente[];
 
-        return clientes.map(cliente => {
+        response.content = (response.content as Cliente[]).map(cliente => {
           cliente.nombre = cliente.nombre.toUpperCase();
           cliente.apellido = cliente.apellido.toUpperCase();
           cliente.creacion = formatDate(cliente.creacion, 'fullDate', 'es-MX');
           return cliente;
         });
+        return response;
       }),
       catchError(e => {
         this.toastr.error(e.error.msj);

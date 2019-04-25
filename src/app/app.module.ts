@@ -1,31 +1,33 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { DirectivaComponent } from './directiva/directiva.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { ClienteService } from './clientes/cliente.service';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { ClientesFormComponent } from './clientes/clientes-form/clientes-form.component';
-import { FormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+import {AppComponent} from './app.component';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {DirectivaComponent} from './directiva/directiva.component';
+import {ClientesComponent} from './clientes/clientes.component';
+import {ClienteService} from './clientes/cliente.service';
+import {RouterModule, Routes} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {ClientesFormComponent} from './clientes/clientes-form/clientes-form.component';
+import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 import {BsModalService, ComponentLoaderFactory, ModalBackdropComponent, PositioningService} from 'ngx-bootstrap';
 import {ModalContainerComponent} from 'ngx-bootstrap/modal';
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import locale from '@angular/common/locales/es-MX';
+import {PaginadorComponent} from './paginador/paginador.component';
 
 registerLocaleData(locale);
 
 const routes: Routes = [
-  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
-  { path: 'directivas', component: DirectivaComponent },
-  { path: 'clientes', component: ClientesComponent },
-  { path: 'clientes/form', component: ClientesFormComponent },
-  { path: 'clientes/form/:id', component: ClientesFormComponent }
+  {path: '', redirectTo: '/clientes', pathMatch: 'full'},
+  {path: 'directivas', component: DirectivaComponent},
+  {path: 'clientes', component: ClientesComponent},
+  {path: 'clientes/pagina/:pagina', component: ClientesComponent},
+  {path: 'clientes/form', component: ClientesFormComponent},
+  {path: 'clientes/form/:id', component: ClientesFormComponent}
 ];
 
 @NgModule({
@@ -41,7 +43,8 @@ const routes: Routes = [
     ClientesComponent,
     ClientesFormComponent,
     ModalBackdropComponent,
-    ModalContainerComponent
+    ModalContainerComponent,
+    PaginadorComponent
   ],
   imports: [
     BrowserModule,
@@ -63,4 +66,5 @@ const routes: Routes = [
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+}
